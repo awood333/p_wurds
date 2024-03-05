@@ -1,0 +1,26 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Dash with Edge",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/app.py",  // Adjust the path to your Python file
+            "python": "${config:python.pythonPath}",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            },
+            "envFile": "${workspaceFolder}/.env",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "stopOnEntry": false,
+            "preLaunchTask": null,
+            "postDebugTask": null,
+            "externalConsole": false,
+            "debugOptions": [
+                "RedirectOutput"
+            ]
+        }
+    ]
+}

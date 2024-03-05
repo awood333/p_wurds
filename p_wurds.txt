@@ -1,0 +1,8 @@
+p_wurds
+├── .vscode
+│   └── launch.json
+├── app.py
+├── assets
+│   └── styles.css
+└── data
+    └── p_wurds.csv
