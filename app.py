@@ -36,7 +36,6 @@ app.layout = html.Div([
 
     )
 ])
-x=1
 
 # Run the Dash app
 if __name__ == '__main__':
