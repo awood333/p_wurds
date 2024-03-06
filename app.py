@@ -1,41 +1,53 @@
 '''app.py'''
 
-from dash import dcc, html
+from dash import Dash, dcc, html, callback, Input, Output
 import pandas as pd
-from dash import Dash, dash_table
 
-external_stylesheets = ['https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css',
-                        '/assets/styles.css'
-]
+df = pd.read_csv('D:\\Git_repos\\dash_projects\\p_wurds\\p_wurds.csv')
 
-df = pd.read_csv('D:\\Git_repos\\dash_projects\\p_wurds\\data\\p_wurds.csv')
+external_stylesheets = ['/assets/styles.css']
 
-app = Dash(__name__, external_stylesheets=external_stylesheets)
+app = Dash(__name__)
+app.css.append_css({"external_url": "/assets/styles.css"})
 
-conditional_formatting_rules = [
-    {
-        'if': {'row_index': 'odd'},
-        'backgroundColor': 'rgb(248, 248, 248)'
-    }
-]
+app.layout = html.Div(
+    id='main-container',
+    style={
+        'display'           : 'flex',
+        'flex-direction'    : 'column',  
+        'height'            : '100vh'  #full viewport height
+    },
 
+    children=[
+        html.H1('パスワード', id='table-header'),
 
-app.layout = html.Div([
-    html.H1("P words"),
-    dash_table.DataTable(
-        id='P words',
-        columns=[{'name': col, 'id': col} for col in df.columns],
-        data=df.to_dict('records'),
-        style_table={'overflowX': 'scroll',
-                     
-                     
-        },
-        page_size=10,
-        style_data_conditional=conditional_formatting_rules,
-        className='xxx'
+        html.Div(
+                id='table-container',
+                style={
+                    'flex': '1',
+                    'overflowX': 'auto'
+                    },
 
-    )
-])
+                children=[
+                    html.Table(
+                        id='data-table',
+                        className='styled-table',
+                        children=[
+                            html.Thead(
+                                html.Tr([html.Th(col) for col in df.columns])
+                            ),
+                            html.Tbody([
+                                html.Tr([
+                                    html.Td(df.iloc[i][col]) for col in df.columns
+                                ]) for i in range(len(df))
+                            ])
+                        ]
+                    )
+                ]
+            )
+        ]
+)
+    
 
 # Run the Dash app
 if __name__ == '__main__':
